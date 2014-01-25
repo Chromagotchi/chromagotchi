@@ -124,6 +124,12 @@ var petManager = (function petManager() {
             for (var i = 0; i < petList.length; i++) {
                 petList[i].update();
             }
+        },
+        setList: function(list) {
+            petList = list;
+        },
+        getList: function() {
+            return petList;
         }
     }
 }());
