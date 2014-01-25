@@ -48,14 +48,19 @@ var petManager = (function petManager() {
             $("body").append(body);
 
             $(body).click(function() {
-                $(body).css('background-color', 'blue');
+
             });
+
+            $(body).drags();
+
+            var gravityAccel = 1;
 
             var curPet = {
                 body: body,
                 currentPetState: PetState.WANDERING,
                 currentMoveState: MovementState.STOP,
                 xPos: pXPos,
+                yPos: 300,
                 moveSpeed: moveSpeed,
                 update: function () {
                     switch (this.currentPetState) {
@@ -78,7 +83,23 @@ var petManager = (function petManager() {
                             updateMove(this);
                             break;
                     }
-                    $(this.body).css("left", this.xPos + "px");
+                    if (this.body.hasClass("draggable")) {
+                        this.xPos = this.body.position().left;
+                        this.yPos = this.body.position().top;
+                    }
+                    else {
+                        if (this.yPos < $(window).height() - this.body.height())
+                        {
+                            this.yPos += gravityAccel += 0.2;
+                        }
+                        else
+                        {
+                            gravityAccel = 1;
+                        }
+
+                        this.body.css("left", this.xPos + "px");
+                        this.body.css("top", this.yPos + "px");
+                    }
                 }
             };
             resetMoveTime(curPet);
