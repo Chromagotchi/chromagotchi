@@ -50,7 +50,6 @@ function StickyNodes() {
     function addDomNode(el) {
         if (el !== undefined && el !== null) {
             el.khIgnore = true;
-            el.style.border = "1px solid #bbb";
             domNodes.push(el);
         }
     }
@@ -199,7 +198,7 @@ function StickyNodes() {
     /**
      * cb(gridObj) -> boolean true if the object should be removed.
      */
-    this.removeIntersecting = function (x, y, r, cb) {
+    this.removeIntersecting = function (x, y, r) {
         var xi, yi, arr, i, r2 = r * r, go,
             startXI = Math.floor((x - r) / GRIDX),
             startYI = Math.floor((y - r) / GRIDY),
@@ -217,9 +216,10 @@ function StickyNodes() {
                 for (i = 0; i < arr.length; i++) {
                     go = arr[i];
                     if (go !== undefined &&
-                        circleGridObjInt(x, y, r, r2, go) &&
-                        cb(go)) {
+                        circleGridObjInt(x, y, r, r2, go)) {
                         removeGridObj(go);
+
+                        return go;
                     }
                 }
             }

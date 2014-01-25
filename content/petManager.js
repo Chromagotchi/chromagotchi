@@ -5,6 +5,23 @@ var petManager = (function petManager() {
 
     var petList = [];
 
+    function obtainSingleTextToken(pet) {
+        var token = window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + pet.body.height() / 2, 45);
+        if (token)
+        {
+            var newToken = token.el.cloneNode(true);
+
+            $("body").append($(newToken));
+
+            $(newToken).css("position", "absolute")
+                .css("transition", "transform 2s")
+                       .addClass("eatenText")
+                       .css("left", token.left - 10 + "px")
+                       .css("top", token.top - 10 + "px")
+                       .css("visibility", "visible");
+        }
+    }
+
     function updateMove(pet) {
         switch (pet.currentMoveState) {
             case MovementState.LEFT:
@@ -16,7 +33,8 @@ var petManager = (function petManager() {
             default:
             //don't move
         }
-        window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + pet.body.height() / 2, 45, function() {return true;});
+
+        obtainSingleTextToken(pet);
     }
 
     function resetMoveTime(pet) {
