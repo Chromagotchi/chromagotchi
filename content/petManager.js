@@ -2,8 +2,24 @@
 // a global update function that updates all pets.
 
 var petManager = (function petManager() {
-
     var petList = [];
+    var leftXBound = 0;
+    var rightXBound = $(window).width();
+    var tabStatus = 'CUR'; // Options are 'CUR', 'LEFT', and 'RIGHT'
+
+    function checkXBounds(pet) {
+        if (pet.xPos < leftXBound) {
+            alert('WE ARE NOW LEFT ' + pet.xPos);
+            tabStatus = 'LEFT';
+        }
+        else if (pet.xPos > rightXBound) {
+            alert('WE ARE NOW RIGHT ' + pet.xPos);
+            tabStatus = 'RIGHT';
+        }
+        else {
+            tabStatus = 'CUR';
+        }
+    }
 
     function updateMove(pet) {
         switch (pet.currentMoveState) {
@@ -14,8 +30,10 @@ var petManager = (function petManager() {
                 pet.xPos += pet.moveSpeed;
                 break;
             default:
-            //don't move
+                //don't move
         }
+        alert('window wid is ' + rightXBound);
+        checkXBounds(pet);
     }
 
     function resetMoveTime(pet) {
