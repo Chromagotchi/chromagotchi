@@ -7,7 +7,6 @@ function pushToContext(signal, value) {
     });
 }
 
-
 window.addEventListener('load', function() {
     /*
     if (typeof jQuery != 'undefined') {
@@ -22,3 +21,5 @@ window.addEventListener('load', function() {
         pushToContext("color", colorVal); 
     });
 });
+
+
