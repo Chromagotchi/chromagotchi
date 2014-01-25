@@ -16,12 +16,12 @@
     "content_scripts": [ {
         "all_frames": true,
         "css": ["css/content.css"],
-        "js": [ "jquery-2.1.0.js", "hackpet.js" ],
+        "js": [ "jquery-2.1.0.js", "content/hackpet.js" ],
             "matches": [ "<all_urls>" ],
             "run_at": "document_start"
         }, {
             "all_frames": true,
-            "js": [ "hackpet_end.js" ],
+            "js": [ "content/hackpet_end.js" ],
             "exclude_globs": [ "http://www.facebook.com", "https://www.facebook.com", 
                     "http://*.facebook.com", "https://*.facebook.com" ],
             "matches": [ "http://*/*", "https://*/*" ],
