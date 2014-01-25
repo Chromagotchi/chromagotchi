@@ -1,26 +1,44 @@
-console.log("TEST1");
 $(document).ready(function() {
-    console.log("TEST2");
-    var square = document.createElement("div");
-    square.style.width = "100px";
-    square.style.height = "100px";
-    square.style.backgroundColor = "red";
+    var square = $(document.createElement("div"));
+    square.addClass("pet");
 
-    square.id = "square";
+    $("body").append(square);
 
-    document.body.appendChild(square);
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+            // alert(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+            if (request.signal == "color") {
+                // alert('setting color to ' + request.value);
+                $(square).css('background-color', request.value);
+                // sendResponse({farewell: "goodbye"});
+            }
+        }
+    );
+
+    var xPos = 0;
+    var mainloop = function() {
+        xPos += 5;
+        $(square).css("left", xPos + "px");
+    };
+
+    var animFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        null ;
+
+    var recursiveAnim = function() {
+        mainloop();
+        animFrame( recursiveAnim );
+    };
+
+    // start the mainloop
+    animFrame( recursiveAnim );
 
     $(square).click(function() {
-        console.log("ONCLICK TEST");
-        square.style.backgroundColor = "blue";    
-    });
-
-    chrome.extension.onConnect.addListener(function(port) {
-        console.log("Connected .....");
-        port.onMessage.addListener(function(msg) {
-            console.log("message recieved"+ msg);
-            port.postMessage("Hi Popup.js");
-        });
+        $(square).css('background-color', 'blue');
     });
 });
+
 
