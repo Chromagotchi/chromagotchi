@@ -10,5 +10,11 @@ $(document).ready(function() {
     square.id = "square";
 
     document.body.appendChild(square);
+
+    $(square).click(function() {
+        console.log("ONCLICK TEST");
+        square.style.backgroundColor = "blue";    
+    });
 });
+
 //
