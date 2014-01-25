@@ -5,9 +5,9 @@
     "description": "A virtual (tamagotchi-esque) pet that makes its home in your web browser!",
     "version": "1.0",
 
-    "permissions": [
-        ""
-    ],
+    //"permissions": [
+    //   ""
+    //],
 
     "browser_action": {
         "default_icon": "icon.png",
