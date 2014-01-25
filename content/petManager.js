@@ -4,6 +4,25 @@
 var petManager = (function petManager() {
 
     var petList = [];
+    var leftXBound = 0;
+    var rightXBound = $(window).width();
+    var tabStatus = 'CUR'; // Options are 'CUR', 'LEFT', and 'RIGHT'
+
+    function checkXBounds(pet) {
+        if (pet.xPos === undefined || pet.yPos === undefined)
+            return;
+        if ((pet.xPos + pet.body.width()) < leftXBound) {
+            // console.log('WE ARE NOW LEFT ' + pet.xPos);
+            tabStatus = 'LEFT';
+        }
+        else if (pet.xPos > rightXBound) {
+            // console.log('WE ARE NOW right ' + pet.xPos);
+            tabStatus = 'RIGHT';
+        }
+        else {
+            tabStatus = 'CUR';
+        }
+    }
 
     function obtainSingleTextToken(pet) {
         var token = window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + pet.body.height() / 2, 45);
@@ -29,10 +48,11 @@ var petManager = (function petManager() {
                 pet.xPos += pet.moveSpeed;
                 break;
             default:
-            //don't move
+                //don't move
         }
 
         obtainSingleTextToken(pet);
+        checkXBounds(pet);
     }
 
     function resetMoveTime(pet) {
@@ -144,7 +164,6 @@ var petManager = (function petManager() {
                 }
             };
             resetMoveTime(curPet);
-
             petList.push(curPet)
         },
         update: function() {
