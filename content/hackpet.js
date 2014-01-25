@@ -1,24 +1,22 @@
 $(document).ready(function() {
-    var square = $(document.createElement("div"));
-    square.addClass("pet");
-
-    $("body").append(square);
+    petManager.addPet(500, 1);
+    petManager.addPet(800, 2);
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-            // alert(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+            // alert(sender.tab ? "from a content script:" + 
+            // sender.tab.url : "from the extension");
             if (request.signal == "color") {
                 // alert('setting color to ' + request.value);
-                $(square).css('background-color', request.value);
+                // $(square).css('background-color', request.value);
                 // sendResponse({farewell: "goodbye"});
+                petManager.updatePetColors(request.value);
             }
         }
     );
 
-    var xPos = 0;
     var mainloop = function() {
-        xPos += 5;
-        $(square).css("left", xPos + "px");
+        petManager.update();
     };
 
     var animFrame = window.requestAnimationFrame ||
@@ -35,10 +33,7 @@ $(document).ready(function() {
 
     // start the mainloop
     animFrame( recursiveAnim );
-
-    $(square).click(function() {
-        $(square).css('background-color', 'blue');
-    });
+    console.log("post frame");
 });
 
 
