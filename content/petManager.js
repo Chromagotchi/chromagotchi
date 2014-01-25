@@ -88,6 +88,7 @@ var petManager = (function petManager() {
             }
         },
         addPet: function(pXPos, moveSpeed) {
+            var startTime = new Date().getTime();
             var body = $(document.createElement("div"));
             body.addClass("pet");
 
@@ -107,7 +108,21 @@ var petManager = (function petManager() {
                 yPos: 300,
                 defaultMoveSpeed: moveSpeed,
                 moveSpeed: moveSpeed,
+                lastSlept: startTime,
+                lastFed: startTime,
+                lastPlayed: startTime,
+                //small values used for easier testing
+                TIRED_TIME: 10000,
+                HUNGRY_TIME: 20000,
+                NAUGHTY_TIME: 30000,
                 update: function () {
+                    var currentTime = new Date().getTime();
+                    if(currentTime - this.lastSlept > this.TIRED_TIME)
+                        this.currentPetState = PetState.TIRED;
+                    if(currentTime - this.lastFed > this.HUNGRY_TIME)
+                        this.currentPetState = PetState.HUNGRY;
+                    if(currentTime - this.lastPlayed > this.NAUGHTY_TIME)
+                        this.currentPetState = PetState.NAUGHTY;
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
                             this.moveSpeed = this.defaultMoveSpeed;
