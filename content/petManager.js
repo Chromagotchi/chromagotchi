@@ -14,11 +14,9 @@ var petManager = (function petManager() {
             $("body").append($(newToken));
 
             $(newToken).css("position", "absolute")
-                .css("transition", "transform 2s")
                        .addClass("eatenText")
                        .css("left", token.left - 10 + "px")
-                       .css("top", token.top - 10 + "px")
-                       .css("visibility", "visible");
+                       .css("top", token.top - 10 + "px");
         }
     }
 
@@ -77,10 +75,6 @@ var petManager = (function petManager() {
 
             body.sprite({fps: 12, no_of_frames: 3});
 
-            $(body).click(function() {
-
-            });
-
             $(body).drags();
 
             var gravityAccel = 1;
@@ -100,31 +94,31 @@ var petManager = (function petManager() {
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
-                            pet.body.spState(3);
-                            pet.body.spStart();
+                            this.body.spState(3);
+                            this.body.spStart();
                             break;
                         case PetState.TIRED:
                             this.moveSpeed = this.defaultMoveSpeed/2.0;
-                            pet.body.spState(4);
-                            pet.body.spStart();
+                            this.body.spState(4);
+                            this.body.spStart();
                             updateMove(this);
                             break;
                         case PetState.EATING:
-                            pet.body.spState(5);
-                            pet.body.spStart();
+                            this.body.spState(5);
+                            this.body.spStart();
                             break;
                         case PetState.HUNGRY:
-                            pet.body.spState(6);
-                            pet.body.spStart();
+                            this.body.spState(6);
+                            this.body.spStart();
                             break;
                         case PetState.PLAYING:
-                            pet.body.spState(7);
-                            pet.body.spStart();
+                            this.body.spState(7);
+                            this.body.spStart();
                             updateMove(this);
                             break;
                         case PetState.NAUGHTY:
-                            pet.body.spState(8);
-                            pet.body.spStart();
+                            this.body.spState(8);
+                            this.body.spStart();
                             updateMove(this);
                             break;
                     }
