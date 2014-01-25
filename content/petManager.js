@@ -78,7 +78,7 @@ var petManager = (function petManager() {
                 update: function () {
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
-                            this.moveSpeed = defaultMoveSpeed;
+                            this.moveSpeed = this.defaultMoveSpeed;
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
@@ -86,7 +86,7 @@ var petManager = (function petManager() {
                             pet.body.spStart();
                             break;
                         case PetState.TIRED:
-                            this.moveSpeed = defaultMoveSpeed/2.0;
+                            this.moveSpeed = this.defaultMoveSpeed/2.0;
                             pet.body.spState(4);
                             pet.body.spStart();
                             updateMove(this);
