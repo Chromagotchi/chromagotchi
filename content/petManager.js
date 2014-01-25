@@ -1,33 +1,40 @@
 // petManager.js contains all pets and has
 // a global update function that updates all pets.
 
-MovementState = {
-    LEFT : 0,
-    RIGHT : 1,
-    STOP : 2
-}
 
 var petManager = (function petManager() {
 
     var petList = [];
 
+    function updateMove(pet) {
+        switch (pet.currentMoveState) {
+            case MovementState.LEFT:
+                pet.xPos -= pet.moveSpeed;
+                break;
+            case MovementState.RIGHT:
+                pet.xPos += pet.moveSpeed;
+                break;
+            default:
+            //don't move
+        }
+    }
+
     function resetMoveTime(pet) {
         var randTime = (Math.random()*2 + 2)*1000;
-        console.log("randTime: "+randTime);
         window.setTimeout(function() {
             var randNum = Math.random();
             console.log("randNum: "+randNum);
             if(randNum < 0.33)
             {
-                pet.currentState = MovementState.LEFT;
+                pet.currentMoveState = MovementState.LEFT;
             }
             else if(randNum < 0.66)
             {
-                pet.currentState = MovementState.RIGHT;
+                pet.currentMoveState = MovementState.RIGHT;
             }
             else
             {
-                pet.ccurrentState = MovementState.STOP;
+                pet.currentMoveState = MovementState.LEFT;
             }
             resetMoveTime(pet);
         }, randTime);
@@ -46,24 +53,34 @@ var petManager = (function petManager() {
 
             var curPet = {
                 body: body,
-                currentState: MovementState.STOP,
+                currentPetState: PetState.WANDERING,
+                currentMoveState: MovementState.STOP,
                 xPos: pXPos,
                 moveSpeed: moveSpeed,
                 update: function () {
-                    switch (this.currentState) {
-                        case MovementState.LEFT:
-                            this.xPos -= this.moveSpeed;
+                    switch (this.currentPetState) {
+                        case PetState.WANDERING:
+                            updateMove(this);
                             break;
-                        case MovementState.RIGHT:
-                            this.xPos += this.moveSpeed;
+                        case PetState.SLEEPING:
+
+                        case PetState.TIRED:
+                            updateMove(this);
                             break;
-                        default:
-                        //don't move
+                        case PetState.EATING:
+                        case PetState.HUNGRY:
+                            updateMove(this);
+                            break;
+                        case PetState.PLAYING:
+                            updateMove(this);
+                            break;
+                        case PetState.NAUGHTY:
+                            updateMove(this);
+                            break;
                     }
                     $(this.body).css("left", this.xPos + "px");
                 }
             };
-
             resetMoveTime(curPet);
 
             petList.push(curPet)
