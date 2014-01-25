@@ -16,6 +16,7 @@ var petManager = (function petManager() {
             default:
             //don't move
         }
+        window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + pet.body.height() / 2, 45, function() {return true;});
     }
 
     function resetMoveTime(pet) {

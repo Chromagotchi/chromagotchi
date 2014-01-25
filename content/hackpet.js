@@ -2,6 +2,20 @@ $(document).ready(function() {
     petManager.addPet(500, 1);
 //    petManager.addPet(800, 2);
 
+    window.khNodes = new StickyNodes();
+
+    var i, len, el;
+    window.khNodes.addWords(document.body);
+    for (i = 0, len = document.body.childNodes.length; i < len; i++) {
+        el = document.body.childNodes[i];
+        window.khNodes.addTagNames(el, [
+            'button', 'canvas', 'iframe', 'img', 'input', 'select',
+            'textarea'
+        ]);
+    }
+
+    window.khNodes.finalize($(document).width(), $(document).height());
+
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
             // alert(sender.tab ? "from a content script:" + 

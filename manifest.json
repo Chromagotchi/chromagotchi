@@ -16,7 +16,8 @@
     "content_scripts": [ {
         "all_frames": true,
         "css": ["css/content.css"],
-        "js": [ "jquery.min.js", "content/draggable.js", "content/jquery.spritely.js", "content/states.js", "content/petManager.js", "content/hackpet.js" ],
+        "js": [ "jquery.min.js", "content/draggable.js", "content/jquery.spritely.js", "content/stickyNodes.js",
+                "content/states.js", "content/petManager.js", "content/hackpet.js" ],
             "matches": [ "<all_urls>" ],
             "run_at": "document_start"
         }, {
