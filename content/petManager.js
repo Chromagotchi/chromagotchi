@@ -8,14 +8,14 @@ var petManager = (function petManager() {
     var tabStatus = 'CUR'; // Options are 'CUR', 'LEFT', and 'RIGHT'
 
     function checkXBounds(pet) {
-        if (pet.xPos !== undefined && (pet.xPos + 80) < leftXBound) {
-            alert('WE ARE NOW LEFT ' + pet.xPos);
-            console.log('WE ARE NOW LEFT ' + pet.xPos);
+        if (pet.xPos === undefined || pet.yPos === undefined)
+            return;
+        if ((pet.xPos + pet.body.width()) < leftXBound) {
+            // console.log('WE ARE NOW LEFT ' + pet.xPos);
             tabStatus = 'LEFT';
         }
-        else if (pet.xPos !== undefined && pet.xPos > rightXBound) {
-            alert('WE ARE NOW RIGHT ' + pet.xPos);
-            console.log('WE ARE NOW right ' + pet.xPos);
+        else if (pet.xPos > rightXBound) {
+            // console.log('WE ARE NOW right ' + pet.xPos);
             tabStatus = 'RIGHT';
         }
         else {
@@ -34,8 +34,9 @@ var petManager = (function petManager() {
             default:
                 //don't move
         }
-        alert('window wid is ' + rightXBound);
         checkXBounds(pet);
+        window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + 
+            pet.body.height() / 2, 45, function() {return true;});
     }
 
     function resetMoveTime(pet) {
@@ -97,7 +98,7 @@ var petManager = (function petManager() {
                 update: function () {
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
-                            this.moveSpeed = defaultMoveSpeed;
+                            this.moveSpeed = this.defaultMoveSpeed;
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
@@ -105,7 +106,7 @@ var petManager = (function petManager() {
                             pet.body.spStart();
                             break;
                         case PetState.TIRED:
-                            this.moveSpeed = defaultMoveSpeed/2.0;
+                            this.moveSpeed = this.defaultMoveSpeed/2.0;
                             pet.body.spState(4);
                             pet.body.spStart();
                             updateMove(this);
