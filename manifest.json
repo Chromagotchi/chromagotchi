@@ -16,7 +16,7 @@
     "content_scripts": [ {
         "all_frames": true,
         "css": ["css/content.css"],
-        "js": [ "jquery-2.1.0.js", "content/hackpet.js" ],
+        "js": [ "jquery-2.1.0.js", "content/petManager.js", "content/hackpet.js" ],
             "matches": [ "<all_urls>" ],
             "run_at": "document_start"
         }, {
