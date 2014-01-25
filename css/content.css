@@ -1,6 +1,7 @@
 .pet {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
+    left: 400px;
     width: 100px;
     height: 100px;
     background-color: red;
