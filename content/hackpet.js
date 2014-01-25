@@ -1,6 +1,17 @@
 $(document).ready(function() {
-    petManager.addPet(500, 1);
-//    petManager.addPet(800, 2);
+    
+    chrome.storage.sync.get("petList", function(obj) {
+        if(obj===true)
+        {
+            petManager.setList(obj["petList"]);
+            console.log("found the list: "+obj["petList"]);
+        }
+        else
+        {
+            petManager.addPet(500,1);
+            console.log("no list, adding pet");
+        }
+    });
 
     window.khNodes = new StickyNodes();
 
