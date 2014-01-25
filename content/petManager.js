@@ -8,12 +8,14 @@ var petManager = (function petManager() {
     var tabStatus = 'CUR'; // Options are 'CUR', 'LEFT', and 'RIGHT'
 
     function checkXBounds(pet) {
-        if (pet.xPos < leftXBound) {
+        if (pet.xPos !== undefined && (pet.xPos + 80) < leftXBound) {
             alert('WE ARE NOW LEFT ' + pet.xPos);
+            console.log('WE ARE NOW LEFT ' + pet.xPos);
             tabStatus = 'LEFT';
         }
-        else if (pet.xPos > rightXBound) {
+        else if (pet.xPos !== undefined && pet.xPos > rightXBound) {
             alert('WE ARE NOW RIGHT ' + pet.xPos);
+            console.log('WE ARE NOW right ' + pet.xPos);
             tabStatus = 'RIGHT';
         }
         else {
@@ -149,7 +151,6 @@ var petManager = (function petManager() {
                 }
             };
             resetMoveTime(curPet);
-
             petList.push(curPet)
         },
         update: function() {
