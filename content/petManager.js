@@ -1,6 +1,5 @@
-/ petManager.js contains all pets and has
+// petManager.js contains all pets and has
 // a global update function that updates all pets.
-
 
 var petManager = (function petManager() {
 
@@ -9,9 +8,11 @@ var petManager = (function petManager() {
     function updateMove(pet) {
         switch (pet.currentMoveState) {
             case MovementState.LEFT:
+                console.log("L");
                 pet.xPos -= pet.moveSpeed;
                 break;
             case MovementState.RIGHT:
+                console.log("R");
                 pet.xPos += pet.moveSpeed;
                 break;
             default:
@@ -20,21 +21,27 @@ var petManager = (function petManager() {
     }
 
     function resetMoveTime(pet) {
-        var randTime = (Math.random()*2 + 2)*1000;
+        var randTime = (Math.random() * 2 + 2) * 1000;
         window.setTimeout(function() {
             var randNum = Math.random();
-            console.log("randNum: "+randNum);
             if(randNum < 0.33)
             {
                 pet.currentMoveState = MovementState.LEFT;
+                pet.body.spState(2);
+                console.log("Left");
+                pet.body.spStart();
             }
             else if(randNum < 0.66)
             {
                 pet.currentMoveState = MovementState.RIGHT;
+                pet.body.spState(1);
+                console.log("Right");
+                pet.body.spStart();
             }
             else
             {
-                pet.currentMoveState = MovementState.LEFT;
+                pet.currentMoveState = MovementState.STOP;
+                pet.body.spStop(1);
             }
             resetMoveTime(pet);
         }, randTime);
@@ -52,6 +59,8 @@ var petManager = (function petManager() {
             body.addClass("pet");
 
             $("body").append(body);
+
+            body.sprite({fps: 12, no_of_frames: 3});
 
             $(body).click(function() {
 

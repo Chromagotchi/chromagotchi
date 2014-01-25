@@ -1,6 +1,6 @@
 $(document).ready(function() {
     petManager.addPet(500, 1);
-    petManager.addPet(800, 2);
+//    petManager.addPet(800, 2);
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
