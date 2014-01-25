@@ -90,26 +90,40 @@ var petManager = (function petManager() {
                 currentMoveState: MovementState.STOP,
                 xPos: pXPos,
                 yPos: 300,
+                defaultMoveSpeed: moveSpeed,
                 moveSpeed: moveSpeed,
                 update: function () {
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
+                            this.moveSpeed = defaultMoveSpeed;
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
+                            pet.body.spState(3);
+                            pet.body.spStart();
                             break;
                         case PetState.TIRED:
+                            this.moveSpeed = defaultMoveSpeed/2.0;
+                            pet.body.spState(4);
+                            pet.body.spStart();
                             updateMove(this);
                             break;
                         case PetState.EATING:
+                            pet.body.spState(5);
+                            pet.body.spStart();
                             break;
                         case PetState.HUNGRY:
-
+                            pet.body.spState(6);
+                            pet.body.spStart();
                             break;
                         case PetState.PLAYING:
+                            pet.body.spState(7);
+                            pet.body.spStart();
                             updateMove(this);
                             break;
                         case PetState.NAUGHTY:
+                            pet.body.spState(8);
+                            pet.body.spStart();
                             updateMove(this);
                             break;
                     }
