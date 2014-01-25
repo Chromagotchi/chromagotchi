@@ -8,11 +8,9 @@ var petManager = (function petManager() {
     function updateMove(pet) {
         switch (pet.currentMoveState) {
             case MovementState.LEFT:
-                console.log("L");
                 pet.xPos -= pet.moveSpeed;
                 break;
             case MovementState.RIGHT:
-                console.log("R");
                 pet.xPos += pet.moveSpeed;
                 break;
             default:
@@ -28,14 +26,12 @@ var petManager = (function petManager() {
             {
                 pet.currentMoveState = MovementState.LEFT;
                 pet.body.spState(2);
-                console.log("Left");
                 pet.body.spStart();
             }
             else if(randNum < 0.66)
             {
                 pet.currentMoveState = MovementState.RIGHT;
                 pet.body.spState(1);
-                console.log("Right");
                 pet.body.spStart();
             }
             else
@@ -83,13 +79,14 @@ var petManager = (function petManager() {
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
-
+                            break;
                         case PetState.TIRED:
                             updateMove(this);
                             break;
                         case PetState.EATING:
+                            break;
                         case PetState.HUNGRY:
-                            updateMove(this);
+
                             break;
                         case PetState.PLAYING:
                             updateMove(this);
