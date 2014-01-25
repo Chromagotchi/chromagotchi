@@ -13,6 +13,7 @@
         "default_icon": "icon.png",
         "default_popup": "popup.html"
     },
+
     "content_scripts": [ {
         "all_frames": true,
         "js": [ "jquery-2.1.0.js", "hackpet.js" ],

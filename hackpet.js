@@ -1,4 +1,3 @@
-// Init code
 console.log("TEST1");
 $(document).ready(function() {
     console.log("TEST2");
@@ -15,6 +14,13 @@ $(document).ready(function() {
         console.log("ONCLICK TEST");
         square.style.backgroundColor = "blue";    
     });
+
+    chrome.extension.onConnect.addListener(function(port) {
+        console.log("Connected .....");
+        port.onMessage.addListener(function(msg) {
+            console.log("message recieved"+ msg);
+            port.postMessage("Hi Popup.js");
+        });
+    });
 });
 
-//
