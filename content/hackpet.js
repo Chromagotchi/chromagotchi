@@ -1,7 +1,5 @@
 $(document).ready(function() {
-//    petManager.addPet(500, 1);
-//    petManager.addPet(800, 2);
-
+    
     chrome.storage.sync.get("petList", function(obj) {
         if(obj===true)
         {
@@ -15,6 +13,14 @@ $(document).ready(function() {
         }
     });
 
+    chrome.tabs.onRemoved.addListener(
+        function(tabId, removeInfo) {
+            chrome.storage.sync.set({"petList" : petManager.getList()}, function() {
+                console.log("Tab closed, set petlist"); 
+            });
+        }
+    );
+    
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
             // alert(sender.tab ? "from a content script:" + 
