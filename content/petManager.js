@@ -88,12 +88,14 @@ var petManager = (function petManager() {
                         this.yPos = this.body.position().top;
                     }
                     else {
-                        if (this.yPos < $(window).height() - this.body.height())
+                        var maxFallHeight = $(window).height() - this.body.height();
+                        if (this.yPos < maxFallHeight)
                         {
                             this.yPos += gravityAccel += 0.2;
                         }
                         else
                         {
+                            this.yPos = maxFallHeight;
                             gravityAccel = 1;
                         }
 
