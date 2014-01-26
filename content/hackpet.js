@@ -7,10 +7,10 @@ $(document).ready(function() {
         }
         else
         {
-            petManager.addPet($(window).width() / 2, 1);
-            ballManager.addBall(100, 400);
-            bowlManager.addBowl(300, 300);
-            bedManager.addBed(0, 200);
+            petManager.addPet($(window).width() / 2 - 100, 1);
+            ballManager.addBall(200, 400);
+            bowlManager.addBowl(500, 600);
+            bedManager.addBed(800, 680);
             console.log("no list, adding pet");
         }
     });

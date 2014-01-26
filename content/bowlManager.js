@@ -34,7 +34,6 @@ var bowlManager = (function bowlManager() {
                             var EATING_TIME = 5000;
 
                             //when pet collides with bowl:
-                            console.log(this.yPos + " + " + petY);
                             if (Math.abs(this.xPos - petX) < 30 &&
                                 Math.abs(this.yPos - petY) < 30) {
                                 console.log("Getting full!");
@@ -57,7 +56,7 @@ var bowlManager = (function bowlManager() {
 
 	                        if (this.yPos < maxFallHeight)
 	                        {
-	                            this.yPos += gravityAccel += .02;;
+	                            this.yPos += gravityAccel += 0.1;
 	                        }
 	                        else {
 	                            this.yPos = maxFallHeight;
