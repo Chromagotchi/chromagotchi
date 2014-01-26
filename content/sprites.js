@@ -3,7 +3,7 @@ var sprites = (function sprites() {
     return {
         pandaWave: {
             info: {
-                dir: "url(assets/pandaWave.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaWave.png)",
                 width: "120px",
                 height: "138px"
             },
@@ -17,7 +17,7 @@ var sprites = (function sprites() {
         },
         pandaWalkLeft: {
             info: {
-                dir: "url(assets/pandaWalkLeft.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaWalkLeft.png)",
                 width: "97px",
                 height: "146px"
             },
@@ -28,7 +28,7 @@ var sprites = (function sprites() {
         },
         pandaWalkRight: {
             info: {
-                dir: "url(assets/pandaWalkRight.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaWalkRight.png)",
                 width: "97px",
                 height: "146px"
             },
@@ -39,7 +39,7 @@ var sprites = (function sprites() {
         },
         pandaJump: {
             info: {
-                dir: "url(assets/pandaJump.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaJump.png)",
                 width: "127px",
                 height: "163px"
             },
@@ -53,7 +53,7 @@ var sprites = (function sprites() {
         },
         pandaGrab: {
             info: {
-                dir: "url(assets/pandaGrab.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaGrab.png)",
                 width: "132px",
                 height: "144px"
             },
@@ -67,7 +67,7 @@ var sprites = (function sprites() {
         },
         pandaSwat: {
             info: {
-                dir: "url(assets/pandaSwat.png)",
+                dir: "url(http://blakethiessen.com/images/chromogotchi/pandaSwat.png)",
                 width: "127px",
                 height: "139px"
             },

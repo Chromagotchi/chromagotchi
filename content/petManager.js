@@ -50,10 +50,12 @@ var petManager = (function petManager() {
                 console.log("Gonna be naughty");
                 if (Math.random() < .33)
                 {
+                    pet.setAnimation(sprites.pandaGrab);
                     $(obtainSingleTextToken(pet)).addClass("eatenText");
                 }
                 else if (Math.random() < .67)
                 {
+                    pet.setAnimation(sprites.pandaGrab);
                     var count = Math.floor(Math.random() * 3) + 1;
                     for (var i = 0; i < count; i++)
                     {
@@ -76,12 +78,12 @@ var petManager = (function petManager() {
                 console.log("Gonna be naughty");
                 if (Math.random() < .33)
                 {
-                    pet.setAnimation(sprites.pandaGrab);
+                    pet.setAnimation(sprites.pandaSwat);
                     $(obtainSingleTextToken(pet)).addClass("whackedText");
                 }
                 else if (Math.random() < .67)
                 {
-                    pet.setAnimation(sprites.pandaGrab);
+                    pet.setAnimation(sprites.pandaSwat);
                     var count = Math.floor(Math.random() * 3) + 1;
                     for (var i = 0; i < count; i++)
                     {
@@ -303,12 +305,12 @@ var petManager = (function petManager() {
                 for (var i = 0; i < petList.length; i++) {
                     var thisPet = petList[i];
 
-                    thisPet.energyLevel -= Math.random() / 10;
+//                    thisPet.energyLevel -= Math.random() / 10;
                     thisPet.hungerLevel -= Math.random() / 10;
                     thisPet.happinessLevel -= Math.random() / 10;
 
                     // If we're in a good state...
-                    if (thisPet.currentPetState < 4) {
+                    if (thisPet.currentPetState < 6) {
                         thisPet.setStateBasedOnNeeds();
                     }
                     console.log("Energy: " + thisPet.energyLevel + " Hunger: " + thisPet.hungerLevel + " Happiness: " + thisPet.happinessLevel);

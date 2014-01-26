@@ -19,21 +19,21 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    background-image: url(assets/redball.png);
+    background-image: url(http://blakethiessen.com/images/chromogotchi/redball.png);
 }
 
 .bowl {
     position: fixed;
     width: 80px;
     height: 63px;
-    background-image: url(assets/foodbowl.png);
+    background-image: url(http://blakethiessen.com/images/chromogotchi/bowl.png);
 }
 
 .bed {
     position: fixed;
     width: 260px;
     height: 150px;
-    background-image: url(assets/bed.png);
+    background-image: url(http://blakethiessen.com/images/chromogotchi/bed.png);
 }
 
 .eatenText {
