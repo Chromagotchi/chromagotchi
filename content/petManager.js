@@ -42,10 +42,29 @@ var petManager = (function petManager() {
     }
 
     function updateHunger(pet) {
-        if (Math.random() > .99)
-        {
-            $(obtainSingleTextToken(pet)).addClass("eatenText");
+        updateMove(pet);
+        if (pet.currentMoveState === MovementState.STOP) {
+            if (!actionExecuted)
+            {
+                // Be naughty...
+                console.log("Gonna be naughty");
+                if (Math.random() < .33)
+                {
+                    $(obtainSingleTextToken(pet)).addClass("eatenText");
+                }
+                else if (Math.random() < .67)
+                {
+                    var count = Math.floor(Math.random() * 3) + 1;
+                    for (var i = 0; i < count; i++)
+                    {
+                        $(obtainSingleTextToken(pet)).addClass("eatenText");
+                    }
+                }
+                actionExecuted = true;
+            }
         }
+        else
+            actionExecuted = false;
     }
 
     function updateNaughty(pet) {
@@ -72,7 +91,6 @@ var petManager = (function petManager() {
         }
         else
             actionExecuted = false;
-
     }
 
     function updateMove(pet) {
@@ -137,7 +155,7 @@ var petManager = (function petManager() {
 
             var curPet = {
                 body: body,
-                currentPetState: PetState.WANDERING,
+                currentPetState: PetState.HUNGRY,
                 currentMoveState: MovementState.STOP,
                 lastCalmState: PetState.WANDERING,
                 xPos: pXPos,
