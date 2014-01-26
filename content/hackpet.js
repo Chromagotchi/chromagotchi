@@ -9,6 +9,7 @@ $(document).ready(function() {
         {
             petManager.addPet(500,1);
             ballManager.addBall(400, 400);
+            bowlManager.addBowl(300, 300);
             console.log("no list, adding pet");
         }
     });
@@ -43,6 +44,7 @@ $(document).ready(function() {
     var mainloop = function() {
         petManager.update();
         ballManager.update(petManager.getList());
+        bowlManager.update(petManager.getList());
     };
 
     var animFrame = window.requestAnimationFrame ||

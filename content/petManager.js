@@ -131,6 +131,8 @@ var petManager = (function petManager() {
 
                     if (this.happinessLevel < .5)// + Math.random() * 3)
                     {
+                        if(this.happinessLevel < 0)
+                            this.happinessLevel = 0;
                         this.currentPetState = PetState.NAUGHTY;
                         badNeedSet = true;
                     }
@@ -138,6 +140,8 @@ var petManager = (function petManager() {
                         this.happinessLevel = 1;
                     if (this.hungerLevel < .5)// + Math.random() * 3)
                     {
+                        if(this.hungerLevel < 0)
+                            this.hungerLevel = 0;
                         this.currentPetState = PetState.HUNGRY;
                         badNeedSet = true;
                     }
@@ -145,16 +149,16 @@ var petManager = (function petManager() {
                         this.hungerLevel = 1;
                     if (this.energyLevel < .5)// + Math.random() * 3)
                     {
+                        if(this.energyLevel < 0)
+                            this.energyLevel = 0;
                         this.currentPetState = PetState.TIRED;
                         badNeedSet = true;
                     }
                     else if (this.energyLevel > 1)
                         this.energyLevel = 1;
-
                     if (!badNeedSet)
                         this.currentPetState = this.lastCalmState;
                 },
-                //small values used for easier testing
                 update: function () {
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
@@ -166,7 +170,7 @@ var petManager = (function petManager() {
                             this.body.spStart();
                             break;
                         case PetState.TIRED:
-                            this.moveSpeed = this.defaultMoveSpeed / 2;
+                            this.moveSpeed = this.defaultMoveSpeed / 2.0;
                             this.body.spState(4);
                             this.body.spStart();
                             updateMove(this);
@@ -210,10 +214,15 @@ var petManager = (function petManager() {
                         this.body.css("left", this.xPos + "px");
                         this.body.css("top", this.yPos + "px");
                     }
+                },
+
+                setState: function(state) {
+                    this.currentPetState = state;
                 }
             };
 
             $(body).click(function() {
+                console.log("BODY CLICKED");
                 if (curPet.currentPetState === PetState.TIRED)
                 {
                     curPet.energyLevel += .3;
@@ -262,6 +271,6 @@ var petManager = (function petManager() {
                     console.log("Current Pet State: " + thisPet.currentPetState);
                 }
             }, 10000);
-        }
+        },
     }
 }());
