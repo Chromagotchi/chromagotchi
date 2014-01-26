@@ -29,3 +29,23 @@
         -webkit-transform: rotate(64deg) scale(0) skew(51deg) translate(70px);
     }
 }
+
+.whackedText {
+    -webkit-animation-name:bend_text;
+    -webkit-animation-duration:1s;
+    -webkit-animation-timing-function:linear;
+    -webkit-animation-play-state:active;
+    -webkit-animation-fill-mode:forwards;
+    -webkit-animation-iteration-count: once;
+
+    visibility: visible !important;
+}
+
+@-webkit-keyframes bend_text {
+    0% {
+
+    }
+    100% {
+        -webkit-transform: rotate(64deg);
+    }
+}

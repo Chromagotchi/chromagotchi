@@ -33,9 +33,24 @@ var petManager = (function petManager() {
             $("body").append($(newToken));
 
             $(newToken).css("position", "absolute")
-                       .addClass("eatenText")
-                       .css("left", token.left - 10 + "px")
-                       .css("top", token.top - 10 + "px");
+                .css("left", token.left - 10 + "px")
+                .css("top", token.top - 10 + "px");
+
+            return newToken;
+        }
+    }
+
+    function updateHunger(pet) {
+        if (Math.random() > .99)
+        {
+            $(obtainSingleTextToken(pet)).addClass("eatenText");
+        }
+    }
+
+    function updateNaughty(pet) {
+        if (Math.random() > .99)
+        {
+            $(obtainSingleTextToken(pet)).addClass("whackedText");
         }
     }
 
@@ -51,7 +66,6 @@ var petManager = (function petManager() {
                 //don't move
         }
 
-        obtainSingleTextToken(pet);
         checkXBounds(pet);
     }
 
@@ -104,25 +118,16 @@ var petManager = (function petManager() {
                 body: body,
                 currentPetState: PetState.WANDERING,
                 currentMoveState: MovementState.STOP,
+                lastCalmState: PetState.WANDERING,
                 xPos: pXPos,
                 yPos: 300,
                 defaultMoveSpeed: moveSpeed,
                 moveSpeed: moveSpeed,
-                lastSlept: startTime,
-                lastFed: startTime,
-                lastPlayed: startTime,
+                energyLevel: .6,
+                hungerLevel: .6,
+                happinessLevel:.6,
                 //small values used for easier testing
-                TIRED_TIME: 10000,
-                HUNGRY_TIME: 20000,
-                NAUGHTY_TIME: 30000,
                 update: function () {
-                    var currentTime = new Date().getTime();
-                    if(currentTime - this.lastSlept > this.TIRED_TIME)
-                        this.currentPetState = PetState.TIRED;
-                    if(currentTime - this.lastFed > this.HUNGRY_TIME)
-                        this.currentPetState = PetState.HUNGRY;
-                    if(currentTime - this.lastPlayed > this.NAUGHTY_TIME)
-                        this.currentPetState = PetState.NAUGHTY;
                     switch (this.currentPetState) {
                         case PetState.WANDERING:
                             this.moveSpeed = this.defaultMoveSpeed;
@@ -133,7 +138,7 @@ var petManager = (function petManager() {
                             this.body.spStart();
                             break;
                         case PetState.TIRED:
-                            this.moveSpeed = this.defaultMoveSpeed/2.0;
+                            this.moveSpeed = this.defaultMoveSpeed / 2;
                             this.body.spState(4);
                             this.body.spStart();
                             updateMove(this);
@@ -145,6 +150,7 @@ var petManager = (function petManager() {
                         case PetState.HUNGRY:
                             this.body.spState(6);
                             this.body.spStart();
+                            updateHunger(this);
                             break;
                         case PetState.PLAYING:
                             this.body.spState(7);
@@ -154,7 +160,7 @@ var petManager = (function petManager() {
                         case PetState.NAUGHTY:
                             this.body.spState(8);
                             this.body.spStart();
-                            updateMove(this);
+                            updateNaughty(this);
                             break;
                     }
                     if (this.body.hasClass("draggable")) {
@@ -179,7 +185,7 @@ var petManager = (function petManager() {
                 }
             };
             resetMoveTime(curPet);
-            petList.push(curPet)
+            petList.push(curPet);
         },
         update: function() {
             for (var i = 0; i < petList.length; i++) {
@@ -191,6 +197,33 @@ var petManager = (function petManager() {
         },
         getList: function() {
             return petList;
+        },
+        startNeedsSystem: function() {
+            window.setInterval(function() {
+                for (var i = 0; i < petList.length; i++) {
+                    var thisPet = petList[i];
+
+                    thisPet.energyLevel -= Math.random() / 10;
+                    thisPet.hungerLevel -= Math.random() / 10;
+                    thisPet.happinessLevel -= Math.random() / 10;
+
+                    // If we're in a good state...
+                    if (thisPet.currentPetState < 4)
+                    {
+                        if (thisPet.energyLevel < 3 + Math.random() * 3)
+                            thisPet.currentPetState = PetState.TIRED;
+                        else if (thisPet.hungerLevel < 3 + Math.random() * 3)
+                            thisPet.currentPetState = PetState.HUNGRY;
+                        else if (thisPet.happinessLevel < 3 + Math.random() * 3)
+                            thisPet.currentPetState = PetState.NAUGHTY;
+                        else
+                            thisPet.currentPetState = thisPet.lastCalmState;
+                    }
+
+                    console.log("Energy: " + thisPet.energyLevel + " Hunger: " + thisPet.hungerLevel + " Happiness: " + thisPet.happinessLevel);
+                    console.log("Current Pet State: " + thisPet.currentPetState);
+                }
+            }, 10000);
         }
     }
 }());

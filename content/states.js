@@ -1,10 +1,10 @@
 PetState = {
     WANDERING : 0,
     SLEEPING : 1,
-    TIRED : 2,
-    EATING : 3,
-    HUNGRY : 4,
-    PLAYING : 5,
+    EATING : 2,
+    PLAYING : 3,
+    TIRED : 4,
+    HUNGRY : 5,
     NAUGHTY : 6
 }
 

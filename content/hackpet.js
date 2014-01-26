@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    
     chrome.storage.sync.get("petList", function(obj) {
         if(obj===true)
         {
@@ -57,6 +56,7 @@ $(document).ready(function() {
     };
 
     // start the mainloop
+    petManager.startNeedsSystem();
     animFrame( recursiveAnim );
     console.log("post frame");
 });
