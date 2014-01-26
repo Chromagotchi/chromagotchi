@@ -1,17 +1,27 @@
+function generatePet(petManager) {
+    var center = $(window).width() / 2;
+    petManager.addPet(center, 1);
+}
+
 $(document).ready(function() {
-    
-    chrome.storage.sync.get("petList", function(obj) {
-        if(obj===true)
-        {
-            petManager.setList(obj["petList"]);
-            console.log("found the list: "+obj["petList"]);
+
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+            console.log("we are returning the second petmanager ");
+            if (request.signal == "newPet") {
+                generatePet(request.petManager);
+            }
+            else if (request.signal == "color") {
+                request.petManager.updatePetColors(request.value);
+            }
+            else if (request.signal == "petManager") {
+                sendResponse({petManager: petManager});
+            }
+            //else if (request.signal == "petManager") {
+            //    console.log('contxt side pet manager');
+            //    sendResponse({petManager: petManager});
+            //}
         }
-        else
-        {
-            petManager.addPet(500,1);
-            console.log("no list, adding pet");
-        }
-    });
+    );
 
     window.khNodes = new StickyNodes();
 
@@ -26,19 +36,6 @@ $(document).ready(function() {
     }
 
     window.khNodes.finalize($(document).width(), $(document).height());
-
-    chrome.runtime.onMessage.addListener(
-        function(request, sender, sendResponse) {
-            // alert(sender.tab ? "from a content script:" + 
-            // sender.tab.url : "from the extension");
-            if (request.signal == "color") {
-                // alert('setting color to ' + request.value);
-                // $(square).css('background-color', request.value);
-                // sendResponse({farewell: "goodbye"});
-                petManager.updatePetColors(request.value);
-            }
-        }
-    );
 
     var mainloop = function() {
         petManager.update();

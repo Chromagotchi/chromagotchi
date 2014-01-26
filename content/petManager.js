@@ -25,7 +25,8 @@ var petManager = (function petManager() {
     }
 
     function obtainSingleTextToken(pet) {
-        var token = window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos + pet.body.height() / 2, 45);
+        var token = window.khNodes.removeIntersecting(pet.xPos + pet.body.width() / 2, pet.yPos 
+                + pet.body.height() / 2, 45);
         if (token)
         {
             var newToken = token.el.cloneNode(true);
@@ -191,6 +192,9 @@ var petManager = (function petManager() {
         },
         getList: function() {
             return petList;
+        },
+        getTabStatus: function() {
+            return tabStatus;
         }
     }
 }());
