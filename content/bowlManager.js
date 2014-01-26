@@ -34,22 +34,28 @@ var bowlManager = (function bowlManager() {
                             var EATING_TIME = 5000;
 
                             //when pet collides with bowl:
-                            if (Math.abs(this.xPos - petX) < 30 &&
-                                Math.abs(this.yPos - petY) < 30) {
+                            if (!curPet.currentlyEating && Math.abs(this.xPos - petX) < 30 &&
+                                Math.abs(this.yPos - petY) < 80) {
+                                curPet.currentlyEating = true;
                                 console.log("Getting full!");
                                 var eatStartTime = new Date().getTime();
                                 var currentTime = new Date().getTime()
                                 curPet.setState(PetState.EATING);
                                 
-                                window.setTimeout( function() {i
+                                window.setTimeout( function() {
                                     console.log("DONE EATING");
                                     $(".bowl").remove();
+
                                     var newHunger = curPet.hungerLevel + 0.2;
                                     if(newHunger > 1)
                                         curPet.hungerLevel = 1;
                                     else
                                         curPet.hungerLevel = newHunger;
-                                    curPet.setStateBasedOnNeeds();
+
+                                    window.setTimeout(function() {
+                                        curPet.setStateBasedOnNeeds();
+                                        curPet.currentlyEating = false;
+                                    }, 1000);
                                 }, EATING_TIME);
                             }
                         }

@@ -165,6 +165,7 @@ var petManager = (function petManager() {
                 energyLevel: .6,
                 hungerLevel: .6,
                 happinessLevel:.6,
+                currentlyEating: false,
                 setStateBasedOnNeeds: function() {
                     var badNeedSet = false;
 
@@ -260,25 +261,6 @@ var petManager = (function petManager() {
                 }
             };
 
-            $(body).click(function() {
-                console.log("BODY CLICKED");
-                if (curPet.currentPetState === PetState.TIRED)
-                {
-                    curPet.energyLevel += .3;
-                    this.setStateBasedOnNeeds();
-                }
-                else if (curPet.currentPetState === PetState.HUNGRY)
-                {
-                    curPet.hungerLevel += .3;
-                    this.setStateBasedOnNeeds();
-                }
-                else if (curPet.currentPetState === PetState.NAUGHTY)
-                {
-                    curPet.happinessLevel += .3;
-                    this.setStateBasedOnNeeds();
-                }
-            });
-            
             resetMoveTime(curPet);
             petList.push(curPet);
         },
