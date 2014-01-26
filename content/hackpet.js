@@ -1,20 +1,6 @@
 $(document).ready(function() {
     
-    chrome.storage.sync.get("petList", function(obj) {
-        if(obj===true)
-        {
-            petManager.setList(obj["petList"]);
-            console.log("found the list: "+obj["petList"]);
-        }
-        else
-        {
-            petManager.addPet($(window).width() / 2 - 100, 1);
-            //ballManager.addBall(200, 400);
-            //bowlManager.addBowl(500, 600);
-            //bedManager.addBed(800, 680);
-            console.log("no list, adding pet");
-        }
-    });
+    petManager.addPet($(window).width() / 2 - 100, 1);
 
     window.khNodes = new StickyNodes();
 

@@ -1,10 +1,18 @@
-.pet {
+.bodyHolder {
     position: fixed;
     bottom: 0px;
     left: 400px;
     width: 120px;
     height: 138px;
-    background-image: url(assets/pandaWave.png);
+    /*background-image: url(assets/pandaWave.png);*/
+}
+
+.pet {
+    position: absolute;
+}
+
+.hiddenPet {
+    display: none;
 }
 
 .ball {

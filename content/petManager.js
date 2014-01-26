@@ -141,18 +141,35 @@ var petManager = (function petManager() {
             }
         },
         addPet: function(pXPos, moveSpeed) {
-            var startTime = new Date().getTime();
-            var body = $(document.createElement("div"));
-            body.addClass("pet");
+            var bodyHolder = $(document.createElement("div"));
+            bodyHolder.addClass("bodyHolder");
 
-            $("body").append(body);
+            var animationBodies = {};
 
-            $(body).drags();
+            for (var key in sprites) {
+                var obj = sprites[key];
+                var objInfo = sprites[key].info;
+
+                var body = $(document.createElement("div"));
+
+                body.css("background-image", objInfo.dir)
+                    .css("width", objInfo.width)
+                    .css("height", objInfo.height)
+                    .addClass("pet hiddenPet")
+                    .sprite(obj.animation);
+
+                $(bodyHolder).append(body);
+
+                animationBodies[obj.info.dir] = body;
+            }
+
+            $(bodyHolder).drags();
 
             var gravityAccel = 1;
 
             var curPet = {
-                body: body,
+                body: bodyHolder,
+                animationBodies: animationBodies,
                 currentPetState: PetState.WANDERING,
                 currentMoveState: MovementState.STOP,
                 lastCalmState: PetState.WANDERING,
@@ -165,11 +182,16 @@ var petManager = (function petManager() {
                 happinessLevel:.6,
                 currentlyOccupied: false,
                 setAnimation: function(anim) {
-                    $(this.body).css("background-image", anim.info.dir)
-                        .css("width", anim.info.width)
-                        .css("height", anim.info.height)
-                        .sprite(anim.animation);
-                    $(this.body).spStart();
+                    for (var key in animationBodies) {
+                        var animationBody2 = animationBodies[key];
+                        if (animationBody2 !== this.animationBodies[anim.info.dir])
+                        {
+                            animationBody2.addClass("hiddenPet");
+                        }
+                    }
+                    var animationBody = this.animationBodies[anim.info.dir];
+                    animationBody.removeClass("hiddenPet");
+                    animationBody.spStart();
                 },
                 playAnimation: function() {
                     $(this.body).spStart();
@@ -259,6 +281,8 @@ var petManager = (function petManager() {
             };
 
             curPet.setAnimation(sprites.pandaWave);
+
+            $("body").append(bodyHolder);
 
             resetMoveTime(curPet);
             petList.push(curPet);

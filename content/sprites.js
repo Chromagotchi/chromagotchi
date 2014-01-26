@@ -9,7 +9,7 @@ var sprites = (function sprites() {
             },
             animation: {
                 no_of_frames: 16,
-                //fps: 6,
+                fps: 6,
                 on_last_frame: function(obj) {
                     obj.spStop(true);
                 }
@@ -22,8 +22,8 @@ var sprites = (function sprites() {
                 height: "146px"
             },
             animation: {
-                no_of_frames: 8
-//                //fps: 6
+                no_of_frames: 8,
+                fps: 6
             }
         },
         pandaWalkRight: {
@@ -33,8 +33,8 @@ var sprites = (function sprites() {
                 height: "146px"
             },
             animation: {
-                no_of_frames: 8
-//                //fps: 6
+                no_of_frames: 8,
+                fps: 6
             }
         },
         pandaJump: {
@@ -45,7 +45,7 @@ var sprites = (function sprites() {
             },
             animation: {
                 no_of_frames: 8,
-                //fps: 6,
+                fps: 6,
                 on_last_frame: function(obj) {
                     obj.spStop(true);
                 }
@@ -59,7 +59,7 @@ var sprites = (function sprites() {
             },
             animation: {
                 no_of_frames: 13,
-                //fps: 6,
+                fps: 6,
                 on_last_frame: function(obj) {
                     obj.spStop(true);
                 }
@@ -73,7 +73,7 @@ var sprites = (function sprites() {
             },
             animation: {
                 no_of_frames: 11,
-                //fps: 6,
+                fps: 6,
                 on_last_frame: function(obj) {
                     obj.spStop(true);
                 }
