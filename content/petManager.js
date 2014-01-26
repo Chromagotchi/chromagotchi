@@ -94,6 +94,17 @@ var petManager = (function petManager() {
         }, randTime);
     }
 
+    function setStateBasedOnNeeds(thisPet) {
+        if (thisPet.energyLevel < .5)// + Math.random() * 3)
+            thisPet.currentPetState = PetState.TIRED;
+        else if (thisPet.hungerLevel < .5)// + Math.random() * 3)
+            thisPet.currentPetState = PetState.HUNGRY;
+        else if (thisPet.happinessLevel < .5)// + Math.random() * 3)
+            thisPet.currentPetState = PetState.NAUGHTY;
+        else
+            thisPet.currentPetState = thisPet.lastCalmState;
+    }
+
     return {
         updatePetColors: function(color) {
             for (var i=0; i<petList.length; i++) {
@@ -184,6 +195,25 @@ var petManager = (function petManager() {
                     }
                 }
             };
+
+            $(body).click(function() {
+                if (curPet.currentPetState === PetState.TIRED)
+                {
+                    curPet.energyLevel += .3;
+                    setStateBasedOnNeeds(curPet);
+                }
+                else if (curPet.currentPetState === PetState.HUNGRY)
+                {
+                    curPet.hungerLevel += .3;
+                    setStateBasedOnNeeds(curPet);
+                }
+                else if (curPet.currentPetState === PetState.NAUGHTY)
+                {
+                    curPet.happinessLevel += .3;
+                    setStateBasedOnNeeds(curPet);
+                }
+            });
+            
             resetMoveTime(curPet);
             petList.push(curPet);
         },
@@ -208,18 +238,9 @@ var petManager = (function petManager() {
                     thisPet.happinessLevel -= Math.random() / 10;
 
                     // If we're in a good state...
-                    if (thisPet.currentPetState < 4)
-                    {
-                        if (thisPet.energyLevel < 3 + Math.random() * 3)
-                            thisPet.currentPetState = PetState.TIRED;
-                        else if (thisPet.hungerLevel < 3 + Math.random() * 3)
-                            thisPet.currentPetState = PetState.HUNGRY;
-                        else if (thisPet.happinessLevel < 3 + Math.random() * 3)
-                            thisPet.currentPetState = PetState.NAUGHTY;
-                        else
-                            thisPet.currentPetState = thisPet.lastCalmState;
+                    if (thisPet.currentPetState < 4) {
+                        setStateBasedOnNeeds(thisPet);
                     }
-
                     console.log("Energy: " + thisPet.energyLevel + " Hunger: " + thisPet.hungerLevel + " Happiness: " + thisPet.happinessLevel);
                     console.log("Current Pet State: " + thisPet.currentPetState);
                 }
