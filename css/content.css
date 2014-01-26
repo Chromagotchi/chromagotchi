@@ -2,9 +2,9 @@
     position: fixed;
     bottom: 0px;
     left: 400px;
-    width: 114px;
-    height: 139px;
-    background-image: url(assets/pandas.png);
+    width: 120px;
+    height: 138px;
+    background-image: url(assets/pandaWave.png);
 }
 
 .ball {

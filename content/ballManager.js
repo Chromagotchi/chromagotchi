@@ -33,18 +33,25 @@ var ballManager = (function ballManager() {
                             var petY = curPet.yPos;
                             var petWidth = curPet.body.width();
 
-                            if (petX - petWidth / 2 < this.xPos && petX + petWidth / 2 > this.xPos && petY < this.yPos + this.body.height()) {
-                                console.log("GEtting happier!");
-                                curPet.happinessLevel += .025;
-                                if (curPet.happinessLevel > .5) {
-                                    curPet.setStateBasedOnNeeds();
+                            if (petX - petWidth / 2 < this.xPos && petX + petWidth / 2 > this.xPos) {
+                                if (petY < this.yPos + this.body.height()) {
+                                    curPet.currentlyOccupied = true;
+                                    console.log("GEtting happier!");
+                                    curPet.happinessLevel += .025;
+                                    if (curPet.happinessLevel > .5) {
+                                        curPet.setStateBasedOnNeeds();
+                                    }
+
+                                    gravityAccel = -gravityAccel;
+                                    this.yPos -= this.yPos + this.body.height() - petY;
+
+                                    foundHead = true;
+                                    break;
                                 }
-
-                                gravityAccel = -gravityAccel;
-                                this.yPos -= this.yPos + this.body.height() - petY;
-
-                                foundHead = true;
-                                break;
+                                else if (petY < this.yPos + this.body.height() + 50)
+                                {
+                                    curPet.setAnimation(sprites.pandaJump);
+                                }
                             }
                         }
 

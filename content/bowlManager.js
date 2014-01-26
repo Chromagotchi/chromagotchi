@@ -34,9 +34,9 @@ var bowlManager = (function bowlManager() {
                             var EATING_TIME = 5000;
 
                             //when pet collides with bowl:
-                            if (!curPet.currentlyEating && Math.abs(this.xPos - petX) < 30 &&
+                            if (!curPet.currentlyOccupied && Math.abs(this.xPos - petX) < 30 &&
                                 Math.abs(this.yPos - petY) < 80) {
-                                curPet.currentlyEating = true;
+                                curPet.currentlyOccupied = true;
                                 console.log("Getting full!");
                                 var eatStartTime = new Date().getTime();
                                 var currentTime = new Date().getTime()
@@ -54,7 +54,7 @@ var bowlManager = (function bowlManager() {
 
                                     window.setTimeout(function() {
                                         curPet.setStateBasedOnNeeds();
-                                        curPet.currentlyEating = false;
+                                        curPet.currentlyOccupied = false;
                                     }, 1000);
                                 }, EATING_TIME);
                             }

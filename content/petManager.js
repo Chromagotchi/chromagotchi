@@ -76,10 +76,12 @@ var petManager = (function petManager() {
                 console.log("Gonna be naughty");
                 if (Math.random() < .33)
                 {
+                    pet.setAnimation(sprites.pandaGrab);
                     $(obtainSingleTextToken(pet)).addClass("whackedText");
                 }
                 else if (Math.random() < .67)
                 {
+                    pet.setAnimation(sprites.pandaGrab);
                     var count = Math.floor(Math.random() * 3) + 1;
                     for (var i = 0; i < count; i++)
                     {
@@ -115,19 +117,17 @@ var petManager = (function petManager() {
             if(randNum < 0.33)
             {
                 pet.currentMoveState = MovementState.LEFT;
-                pet.body.spState(2);
-                pet.body.spStart();
+                pet.setAnimation(sprites.pandaWalkLeft);
             }
             else if(randNum < 0.66)
             {
                 pet.currentMoveState = MovementState.RIGHT;
-                pet.body.spState(2);
-                pet.body.spStart();
+                pet.setAnimation(sprites.pandaWalkRight);
             }
             else
             {
                 pet.currentMoveState = MovementState.STOP;
-                pet.body.spStop(1);
+                pet.setAnimation(sprites.pandaWave);
             }
             resetMoveTime(pet);
         }, randTime);
@@ -147,8 +147,6 @@ var petManager = (function petManager() {
 
             $("body").append(body);
 
-            body.sprite({fps: 12, no_of_frames: 5});
-
             $(body).drags();
 
             var gravityAccel = 1;
@@ -165,7 +163,17 @@ var petManager = (function petManager() {
                 energyLevel: .6,
                 hungerLevel: .6,
                 happinessLevel:.6,
-                currentlyEating: false,
+                currentlyOccupied: false,
+                setAnimation: function(anim) {
+                    $(this.body).css("background-image", anim.info.dir)
+                        .css("width", anim.info.width)
+                        .css("height", anim.info.height)
+                        .sprite(anim.animation);
+                    $(this.body).spStart();
+                },
+                playAnimation: function() {
+                    $(this.body).spStart();
+                },
                 setStateBasedOnNeeds: function() {
                     var badNeedSet = false;
 
@@ -206,32 +214,21 @@ var petManager = (function petManager() {
                             updateMove(this);
                             break;
                         case PetState.SLEEPING:
-                            this.body.spState(3);
-                            this.body.spStart();
                             break;
                         case PetState.TIRED:
                             this.moveSpeed = this.defaultMoveSpeed / 2;
-                            this.body.spState(4);
-                            this.body.spStart();
                             updateMove(this);
                             break;
                         case PetState.EATING:
-                            this.body.spState(5);
-                            this.body.spStart();
                             break;
                         case PetState.HUNGRY:
-                            this.body.spState(6);
-                            this.body.spStart();
                             updateHunger(this);
                             break;
                         case PetState.PLAYING:
-                            this.body.spState(7);
-                            this.body.spStart();
-                            updateMove(this);
+                            if (!this.currentlyOccupied)
+                                updateMove(this);
                             break;
                         case PetState.NAUGHTY:
-                            this.body.spState(8);
-                            this.body.spStart();
                             updateNaughty(this);
                             break;
                     }
@@ -260,6 +257,8 @@ var petManager = (function petManager() {
                     this.currentPetState = state;
                 }
             };
+
+            curPet.setAnimation(sprites.pandaWave);
 
             resetMoveTime(curPet);
             petList.push(curPet);

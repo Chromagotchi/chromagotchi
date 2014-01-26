@@ -9,6 +9,10 @@ body {
 
 }
 
+.interactable {
+    max-height: 100px;
+}
+
 img {
 
 }
