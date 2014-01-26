@@ -155,7 +155,7 @@ var petManager = (function petManager() {
 
             var curPet = {
                 body: body,
-                currentPetState: PetState.HUNGRY,
+                currentPetState: PetState.WANDERING,
                 currentMoveState: MovementState.STOP,
                 lastCalmState: PetState.WANDERING,
                 xPos: pXPos,

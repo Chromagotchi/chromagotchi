@@ -44,7 +44,6 @@ var bedManager = (function bedManager() {
 
                                 window.setTimeout( function() {i
                                     console.log("Done sleeping!")
-                                    $(".bed").remove();
                                     var newEnergy = curPet.energyLevel + 0.2;
                                     if(newEnergy > 1)
                                         curPet.energyLevel = 1;
@@ -56,7 +55,7 @@ var bedManager = (function bedManager() {
                         }
 
                         if (this.yPos < maxFallHeight) {
-                            this.yPos += gravityAccel += .02;;
+                            this.yPos += gravityAccel += 0.2;
                         }
                         else {
                             this.yPos = maxFallHeight;

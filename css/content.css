@@ -11,8 +11,7 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    background-color: red;
-    border-radius: 50%;
+    background-image: url(assets/redball.png);
 }
 
 .bowl {
