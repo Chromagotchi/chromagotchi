@@ -8,7 +8,7 @@ in your web browser.
 
 This was built as a hackathon project at hackTECH '14. Possible features to add in the future 
 include making one pet persistent across your entire browser as it wanders between tabs, having 
-the Chromogotchi attack ads on the webpage, audio, etc.
+the Chromogotchi attack ads on the webpage, audio, support across browsers/mobile, etc.
 
 Writen by:
 Lucas Ou-Yang, Blake Thiessen, Kelvin Lee, Jose Gallegos
