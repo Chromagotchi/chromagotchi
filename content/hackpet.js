@@ -10,6 +10,7 @@ $(document).ready(function() {
             petManager.addPet($(window).width() / 2, 1);
             ballManager.addBall(100, 400);
             bowlManager.addBowl(300, 300);
+            bedManager.addBed(0, 200);
             console.log("no list, adding pet");
         }
     });
@@ -45,6 +46,7 @@ $(document).ready(function() {
         petManager.update();
         ballManager.update(petManager.getList());
         bowlManager.update(petManager.getList());
+        bedManager.update(petManager.getList());
     };
 
     var animFrame = window.requestAnimationFrame ||

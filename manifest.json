@@ -20,7 +20,8 @@
         "all_frames": true,
         "css": ["css/content.css"],
        "js": [ "jquery.min.js", "content/draggable.js", "content/jquery.spritely.js", "content/stickyNodes.js",
-                "content/states.js", "content/petManager.js", "content/ballManager.js", "content/bowlManager.js", "content/hackpet.js" ],
+                "content/states.js", "content/petManager.js", "content/ballManager.js", "content/bowlManager.js",
+                "content/bedManager.js", "content/hackpet.js" ],
            "matches": [ "<all_urls>" ],
             "run_at": "document_start"
         }, {

@@ -1,12 +1,12 @@
-var bowlManager = (function bowlManager() {
+var bedManager = (function bedManager() {
 
-  var bowlList = [];
+    var bedList = [];
 
     return {
-        addBowl: function(pXPos, pYPos) {
-        	console.log("addBowl called");
+        addBed: function(pXPos, pYPos) {
+            console.log("addBed called");
             var body = $(document.createElement("div"));
-            body.addClass("bowl");
+            body.addClass("bed");
 
             $("body").append(body);
 
@@ -14,7 +14,7 @@ var bowlManager = (function bowlManager() {
 
             var gravityAccel = 1;
 
-            var curBowl = {
+            var curBed = {
                 body: body,
                 xPos: pXPos,
                 yPos: pYPos,
@@ -31,50 +31,49 @@ var bowlManager = (function bowlManager() {
                             var petX = curPet.xPos;
                             var petY = curPet.yPos;
                             var petWidth = curPet.body.width();
-                            var EATING_TIME = 5000;
+                            var left = this.xPos - this.body.width() / 2;
+                            var right = this.xPos + this.body.width() / 2;
 
-                            //when pet collides with bowl:
-                            console.log(this.yPos + " + " + petY);
+                            //when pet collides with bed:
                             if (Math.abs(this.xPos - petX) < 30 &&
                                 Math.abs(this.yPos - petY) < 30) {
-                                console.log("Getting full!");
+                                console.log("Sleeping!");
                                 var eatStartTime = new Date().getTime();
                                 var currentTime = new Date().getTime()
-                                curPet.setState(PetState.EATING);
-                                
+                                curPet.setState(PetState.SLEEPING);
+
                                 window.setTimeout( function() {i
-                                    console.log("DONE EATING");
-                                    $(".bowl").remove();
-                                    var newHunger = curPet.hungerLevel + 0.2;
-                                    if(newHunger > 1)
-                                        curPet.hungerLevel = 1;
+                                    console.log("Done sleeping!")
+                                    $(".bed").remove();
+                                    var newEnergy = curPet.energyLevel + 0.2;
+                                    if(newEnergy > 1)
+                                        curPet.energyLevel = 1;
                                     else
-                                        curPet.hungerLevel = newHunger;
+                                        curPet.energyLevel = newEnergy;
                                     curPet.setStateBasedOnNeeds();
-                                }, EATING_TIME);
+                                }, 6000);
                             }
                         }
 
-	                        if (this.yPos < maxFallHeight)
-	                        {
-	                            this.yPos += gravityAccel += .02;;
-	                        }
-	                        else {
-	                            this.yPos = maxFallHeight;
-	                        }
+                        if (this.yPos < maxFallHeight) {
+                            this.yPos += gravityAccel += .02;;
                         }
-
-
-                        this.body.css("left", this.xPos + "px");
-                        this.body.css("top", this.yPos + "px");
+                        else {
+                            this.yPos = maxFallHeight;
+                        }
                     }
-                }
 
-            bowlList.push(curBowl);
+
+                    this.body.css("left", this.xPos + "px");
+                    this.body.css("top", this.yPos + "px");
+                }
+            }
+
+            bedList.push(curBed);
         },
         update: function(petList) {
-            for (var i = 0; i < bowlList.length; i++) {
-                bowlList[i].update(petList);
+            for (var i = 0; i < bedList.length; i++) {
+                bedList[i].update(petList);
             }
         }
     }

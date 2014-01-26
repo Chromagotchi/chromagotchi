@@ -121,7 +121,7 @@ var petManager = (function petManager() {
             else if(randNum < 0.66)
             {
                 pet.currentMoveState = MovementState.RIGHT;
-                pet.body.spState(1);
+                pet.body.spState(2);
                 pet.body.spStart();
             }
             else
@@ -147,7 +147,7 @@ var petManager = (function petManager() {
 
             $("body").append(body);
 
-            body.sprite({fps: 12, no_of_frames: 3});
+            body.sprite({fps: 12, no_of_frames: 5});
 
             $(body).drags();
 
