@@ -35,7 +35,7 @@ var ballManager = (function ballManager() {
 
                             if (petX - petWidth / 2 < this.xPos && petX + petWidth / 2 > this.xPos && petY < this.yPos + this.body.height()) {
                                 console.log("GEtting happier!");
-                                curPet.happinessLevel += .05;
+                                curPet.happinessLevel += .025;
                                 if (curPet.happinessLevel > .5) {
                                     curPet.setStateBasedOnNeeds();
                                 }

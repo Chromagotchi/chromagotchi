@@ -7,6 +7,7 @@ var petManager = (function petManager() {
     var leftXBound = 0;
     var rightXBound = $(window).width();
     var tabStatus = 'CUR'; // Options are 'CUR', 'LEFT', and 'RIGHT'
+    var actionExecuted = false;
 
     function checkXBounds(pet) {
         if (pet.xPos === undefined || pet.yPos === undefined)
@@ -48,10 +49,30 @@ var petManager = (function petManager() {
     }
 
     function updateNaughty(pet) {
-        if (Math.random() > .99)
-        {
-            $(obtainSingleTextToken(pet)).addClass("whackedText");
+        updateMove(pet);
+        if (pet.currentMoveState === MovementState.STOP) {
+            if (!actionExecuted)
+            {
+                // Be naughty...
+                console.log("Gonna be naughty");
+                if (Math.random() < .33)
+                {
+                    $(obtainSingleTextToken(pet)).addClass("whackedText");
+                }
+                else if (Math.random() < .67)
+                {
+                    var count = Math.floor(Math.random() * 3) + 1;
+                    for (var i = 0; i < count; i++)
+                    {
+                        $(obtainSingleTextToken(pet)).addClass("whackedText");
+                    }
+                }
+                actionExecuted = true;
+            }
         }
+        else
+            actionExecuted = false;
+
     }
 
     function updateMove(pet) {
@@ -170,7 +191,7 @@ var petManager = (function petManager() {
                             this.body.spStart();
                             break;
                         case PetState.TIRED:
-                            this.moveSpeed = this.defaultMoveSpeed / 2.0;
+                            this.moveSpeed = this.defaultMoveSpeed / 2;
                             this.body.spState(4);
                             this.body.spStart();
                             updateMove(this);
@@ -271,6 +292,6 @@ var petManager = (function petManager() {
                     console.log("Current Pet State: " + thisPet.currentPetState);
                 }
             }, 10000);
-        },
+        }
     }
 }());

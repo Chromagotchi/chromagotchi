@@ -7,8 +7,8 @@ $(document).ready(function() {
         }
         else
         {
-            petManager.addPet(500,1);
-            ballManager.addBall(400, 400);
+            petManager.addPet($(window).width() / 2, 1);
+            ballManager.addBall(100, 400);
             bowlManager.addBowl(300, 300);
             console.log("no list, adding pet");
         }
