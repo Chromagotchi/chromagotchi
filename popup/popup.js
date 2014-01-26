@@ -15,6 +15,21 @@ window.addEventListener('load', function() {
         alert("jQuery library is not found!");
     }
     */
+    $('#createFood').click(function() {
+        console.log("food link clicked");
+        pushToContext("food", "food");
+    });
+
+    $('#createBall').click(function() {
+        console.log("ball link clicked");
+        pushToContext("ball", "ball");
+    });
+
+    $('#createBed').click(function() {
+        console.log("bed link clicked");
+        pushToContext("bed", "bed");
+    });
+
     $('#refresh-color').click(function() {
         var colorVal = $("#pet-color").val() || "000";
         colorVal = "#" + colorVal;

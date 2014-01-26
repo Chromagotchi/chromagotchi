@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    
     chrome.storage.sync.get("petList", function(obj) {
         if(obj===true)
         {
@@ -8,9 +9,9 @@ $(document).ready(function() {
         else
         {
             petManager.addPet($(window).width() / 2 - 100, 1);
-            ballManager.addBall(200, 400);
-            bowlManager.addBowl(500, 600);
-            bedManager.addBed(800, 680);
+            //ballManager.addBall(200, 400);
+            //bowlManager.addBowl(500, 600);
+            //bedManager.addBed(800, 680);
             console.log("no list, adding pet");
         }
     });
@@ -33,11 +34,24 @@ $(document).ready(function() {
         function(request, sender, sendResponse) {
             // alert(sender.tab ? "from a content script:" + 
             // sender.tab.url : "from the extension");
+            console.log("MESSAGE RECEIVED");
             if (request.signal == "color") {
                 // alert('setting color to ' + request.value);
                 // $(square).css('background-color', request.value);
                 // sendResponse({farewell: "goodbye"});
                 petManager.updatePetColors(request.value);
+            }
+            else if (request.signal == "food") {
+                console.log("FOOD SIGNAL RECEIVED, MAKING FOOD");
+                bowlManager.addBowl(500,600);
+            }
+            else if (request.signal == "ball") {
+                console.log("BALL SIGNAL RECEIVED, MAKING BALL");
+                ballManager.addBall(200,400);
+            }
+            else if(request.signal == "bed") {
+                console.log("BED SIGNAL RECEIVED, MAKING BED");
+                bedManager.addBed(800,600);
             }
         }
     );
