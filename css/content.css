@@ -7,6 +7,14 @@
     background-image: url("http://spritely.net/images/bird-forward-back.png");
 }
 
+.ball {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    border-radius: 50%;
+}
+
 .eatenText {
     -webkit-animation-name:move_to_mouth;
     -webkit-animation-duration:1s;

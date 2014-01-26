@@ -94,17 +94,6 @@ var petManager = (function petManager() {
         }, randTime);
     }
 
-    function setStateBasedOnNeeds(thisPet) {
-        if (thisPet.energyLevel < .5)// + Math.random() * 3)
-            thisPet.currentPetState = PetState.TIRED;
-        else if (thisPet.hungerLevel < .5)// + Math.random() * 3)
-            thisPet.currentPetState = PetState.HUNGRY;
-        else if (thisPet.happinessLevel < .5)// + Math.random() * 3)
-            thisPet.currentPetState = PetState.NAUGHTY;
-        else
-            thisPet.currentPetState = thisPet.lastCalmState;
-    }
-
     return {
         updatePetColors: function(color) {
             for (var i=0; i<petList.length; i++) {
@@ -137,6 +126,34 @@ var petManager = (function petManager() {
                 energyLevel: .6,
                 hungerLevel: .6,
                 happinessLevel:.6,
+                setStateBasedOnNeeds: function() {
+                    var badNeedSet = false;
+
+                    if (this.happinessLevel < .5)// + Math.random() * 3)
+                    {
+                        this.currentPetState = PetState.NAUGHTY;
+                        badNeedSet = true;
+                    }
+                    else if (this.happinessLevel > 1)
+                        this.happinessLevel = 1;
+                    if (this.hungerLevel < .5)// + Math.random() * 3)
+                    {
+                        this.currentPetState = PetState.HUNGRY;
+                        badNeedSet = true;
+                    }
+                    else if (this.hungerLevel > 1)
+                        this.hungerLevel = 1;
+                    if (this.energyLevel < .5)// + Math.random() * 3)
+                    {
+                        this.currentPetState = PetState.TIRED;
+                        badNeedSet = true;
+                    }
+                    else if (this.energyLevel > 1)
+                        this.energyLevel = 1;
+
+                    if (!badNeedSet)
+                        this.currentPetState = this.lastCalmState;
+                },
                 //small values used for easier testing
                 update: function () {
                     switch (this.currentPetState) {
@@ -200,17 +217,17 @@ var petManager = (function petManager() {
                 if (curPet.currentPetState === PetState.TIRED)
                 {
                     curPet.energyLevel += .3;
-                    setStateBasedOnNeeds(curPet);
+                    this.setStateBasedOnNeeds();
                 }
                 else if (curPet.currentPetState === PetState.HUNGRY)
                 {
                     curPet.hungerLevel += .3;
-                    setStateBasedOnNeeds(curPet);
+                    this.setStateBasedOnNeeds();
                 }
                 else if (curPet.currentPetState === PetState.NAUGHTY)
                 {
                     curPet.happinessLevel += .3;
-                    setStateBasedOnNeeds(curPet);
+                    this.setStateBasedOnNeeds();
                 }
             });
             
@@ -239,7 +256,7 @@ var petManager = (function petManager() {
 
                     // If we're in a good state...
                     if (thisPet.currentPetState < 4) {
-                        setStateBasedOnNeeds(thisPet);
+                        thisPet.setStateBasedOnNeeds();
                     }
                     console.log("Energy: " + thisPet.energyLevel + " Hunger: " + thisPet.hungerLevel + " Happiness: " + thisPet.happinessLevel);
                     console.log("Current Pet State: " + thisPet.currentPetState);
